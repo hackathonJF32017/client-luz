@@ -20,15 +20,18 @@
 <script>
 import axios from "axios";
 
+var ctx = {};
+
 export default {
   name: "editarea",
-  props: [id],
+  props: ['id'],
   created() {
+    ctx.id = this.id;
     axios
-      .get(`http://192.168.2.27/api/setores/${this.id}`, {
+      .get(`http://192.168.2.27/api/auth/login/${this.id}`, {
         headers: {
           "App-Token":
-            "SEFoQjNReTc1ZHQzTWp3Vnc4c3RqMXYrL3BxVWphR3pEcUNTWlY1WEZINE01N25YOGVxKzk0YzRLQm5Sb1Ura1dxbzlmOFJXNWdQQzVQYmFRZlQwdG9CbXZRYWwyMnhVLzNUaU5uY0l6Q1dCZjdYLzRJZmVwd2ZEZUZBOFA3UnJxUUdxSHdVeTI3UjFBd0QxL0U4c053PT0="
+            "SEFoQjNReTc1ZHQzTWp3Vnc4c3RqMXYrL3BxVWphR3pEcUNTWlY1WEZINE01N25YOGVxKzk0YzRLQm5Sb1Ura1dxbzlmOFJXNWdQQzVQYmFRZlQwdG9CbXZRYWwyMnhVLzNUaU5uY0l6Q1Y0ellJZEZGS2crRUVLVjZ3QmVNblE3U0FINUhYeHRXRzFLZysvU1RKQld3PT0="
         }
       })
       .then(response => {
@@ -40,7 +43,7 @@ export default {
   },
   methods: {
     updateArea: area => {
-    axios.post(`http://192.168.2.27/api/setores/${this.id}`,
+    axios.post(`http://192.168.2.27/api/setores/${ctx.id}`,
         {
           no_setor: 'Nome do setor',
           de_setor: 'Desc do setor'
@@ -61,7 +64,6 @@ export default {
   data() {
     return {
       msg: "Editar Setor",
-      id: null,
       area: {}
     };
   }

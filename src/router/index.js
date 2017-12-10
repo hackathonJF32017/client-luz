@@ -25,6 +25,9 @@ const router = new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+      meta: {
+        skipAuth: true
+      }
     },
     {
       path: '/',
@@ -81,13 +84,14 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  // Verify if the user is logged in
-  const isUserLoggedIn = true;
-  console.log('FROM', from);
-  if (isUserLoggedIn) {
+  if(!to.matched.some(record => record.meta.skipAuth)) {
+    if(!window.localStorage.getItem('token')) {
+      next({ path: '/login' });
+    } else {
+      next();
+    }
+  } else {
     next();
-  } else if (from.path !== '/login') {
-    next({ path: '/login' });
   }
 });
 
