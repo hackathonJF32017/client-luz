@@ -2,13 +2,17 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/views/Login';
 import Home from '@/views/Home';
-import Profile from '@/views/Profile';
 import Dashboard from '@/views/Dashboard';
 
 // Setores
 import AddSetor from '@/views/setores/AddSetor';
 import ListSetores from '@/views/setores/ListSetores';
 import EditSetor from '@/views/setores/EditSetor';
+
+// Usuarios
+import ListUsuarios from '@/views/usuarios/ListUsuarios';
+import EditUsuario from '@/views/usuarios/EditUsuario';
+import AddUsuario from '@/views/usuarios/AddUsuario';
 
 // Ideas
 import AddIdea from '@/views/ideas/AddIdea';
@@ -39,11 +43,6 @@ const router = new Router({
       name: 'Dashboard',
       component: Dashboard,
     },
-    {
-      path: '/profile',
-      name: 'Profile',
-      component: Profile,
-    },
 
     // Idea
     {
@@ -62,19 +61,52 @@ const router = new Router({
       path: '/addsetor',
       name: 'AddSetor',
       component: AddSetor,
+      meta: {
+        nivel: 1
+      }
     },
     {
       path: '/listsetores',
       name: 'ListSetores',
       component: ListSetores,
+      meta: {
+        nivel: 1
+      }
     },
     {
       path: '/listsetores/:id',
       name: 'EditSetor',
       component: EditSetor,
-      props: true
+      props: true,
+      meta: {
+        nivel: 1
+      }
     },
-
+    {
+      path: '/addusuario',
+      name: 'AddUsuario',
+      component: AddUsuario,
+      meta: {
+        nivel: 1
+      }
+    },
+    {
+      path: '/listusuarios',
+      name: 'ListUsuarios',
+      component: ListUsuarios,
+      meta: {
+        nivel: 1
+      }
+    },
+    {
+      path: '/listusuarios/:id',
+      name: 'EditUsuario',
+      component: EditUsuario,
+      props: true,
+      meta: {
+        nivel: 1
+      }
+    },
     {
       path: '*',
       name: 'NotFound',
@@ -84,13 +116,21 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  if(!to.matched.some(record => record.meta.skipAuth)) {
+  if(!to.matched[0].meta.skipAuth) {
     if(!window.localStorage.getItem('token')) {
       next({ path: '/login' });
     } else {
       next();
     }
   } else {
+    if(to.matched[0].meta.nivel) {
+      var nivel = window.localStorage.getItem("nivel");
+      if(to.matched[0].meta.nivel == nivel) {
+        next();
+      } else {
+        next({ path: '/dashboard' });
+      }
+    }
     next();
   }
 });
