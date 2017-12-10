@@ -1,17 +1,27 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h2>{{ msg }}</h2>
     <div class="card">
       <div class="row">
 
       </div>
       <div class="row">
-        <h3>Sugestão</h3>
+        <h3>
+          Sugestão
+          <div if="nivel == 2">
+            <router-link :to="{path: 'addidea'}" class="align-ideia">
+              <input type="button" value="Enviar resposta" />
+            </router-link>
+            <router-link :to="{path: 'addidea'}" class="align-ideia">
+              <input type="button" value="Marcar como implementado" />
+            </router-link>
+          </div>
+        </h3>
         <div>"{{idea.de_ideia}}"</div>
       </div>
       <div class="row">
         <span v-if="idea.setor">
-          Sugerida por <b>{{ idea.setor.no_nome }}</b>
+          Sugerida por <b>{{ idea.usuario.no_nome }}</b>
         </span>
         <span v-if="idea.setor">
           - ({{ idea.setor.no_setor }})
@@ -109,6 +119,7 @@ export default {
   data () {
     return {
       msg: 'Detalhes',
+      nivel: window.localStorage.getItem('nivel'),
       idea: {
         comentarios: []
       }
@@ -122,5 +133,9 @@ export default {
     width: 100%;
     display: flex;
     justify-content: space-between;
+  }
+  h2 {
+    float: left;
+    margin-left: 25px;
   }
 </style>
