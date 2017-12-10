@@ -16,7 +16,7 @@
           <router-link :to="{path: 'listsetores/' + setor.co_setor}">
             <input type="button" value="Editar" />
           </router-link>
-          <input type="button" value="Excluir" />
+          <input type="button" value="Excluir" @click="remove" :data-id="setor.co_setor" />
         </div>
       </div>
     </div>
@@ -41,6 +41,35 @@ export default {
       .catch(e => {
         window.alert(e.response.data.message);
       });
+  },
+  methods: {
+    remove(c) {
+      var id = c.toElement.dataset.id;
+      this.$swal({
+        title: 'Confirmar ação?',
+        text: "Você deseja mesmo excluir este setor?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, deletar!',
+        cancelButtonText: 'Cancelar'        
+      }).then((result) => {
+        if(result) {
+          axios
+          .delete('http://192.168.2.27/api/setores/' + id, {
+            headers: {
+              "App-Token": window.localStorage.getItem('token')
+            }
+          })
+          .then(response => {
+            if(response.status == 200) {
+              window.location.reload();
+            }
+          });
+        }
+      }, () => {});
+    }
   },
   data() {
     return {

@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueSweetAlert from 'vue-sweetalert'
+
+Vue.use(VueSweetAlert)
 
 Vue.config.productionTip = false
 

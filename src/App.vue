@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <header>
+      <a href="/dashboard"><img src="/static/img/home.png" class="home" /></a>
       <span>LUZ</span>
       <span>
         <input @click="logout" type="button" value="SAIR" class="clickable">
@@ -110,5 +111,10 @@ textarea {
   border-radius: 0.2em;
   text-align: left;
   padding: 0.4em;
+}
+.home {
+  width: 30px;
+  height: 28px;
+  margin-top: 12px;
 }
 </style>
