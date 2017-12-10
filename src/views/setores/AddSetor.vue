@@ -4,14 +4,14 @@
     <div class="card">
         <div class="row">
             <label for="name">Nome do setor</label>
-            <input type="text" name="name" id="name" v-model="area.nome" />
+            <input type="text" name="name" id="name" v-model="setor.nome" />
         </div>
         <div class="row">
             <label for="description">Descrição do setor</label>
-            <textarea name="description" id="description" v-model="area.descricao"></textarea>
+            <textarea name="description" id="description" v-model="setor.descricao"></textarea>
         </div>
         <div class="row">
-            <input @click="addArea" type="button" value="Cadastrar">
+            <input @click="add" type="button" value="Cadastrar">
         </div>
     </div>
   </div>
@@ -21,20 +21,20 @@
 import axios from "axios";
 
 export default {
-  name: "addarea",
+  name: "addsetor",
   methods: {
-    addArea() {
+    add() {
       axios
       .post('http://192.168.2.27/api/setores', {
-            no_setor: this.area.nome,
-            de_setor: this.area.descricao
+            no_setor: this.setor.nome,
+            de_setor: this.setor.descricao
         }, {
           headers: {
             "App-Token": window.localStorage.getItem('token')
           }
       })
       .then(response => {
-        this.$router.push('/listareas');
+        this.$router.push('/listsetores');
       })
       .catch(e => {
         console.log(e);
@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       msg: "Setor",
-      area: {
+      setor: {
         nome: null,
         descricao: null
       }
