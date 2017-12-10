@@ -1,9 +1,9 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
     <div v-if="nivel == 1">
+      <h1>{{ msg }}</h1>
       <div class="dashboard-admin">
-        <a href="/listideias">Ideias</a>
+        <a href="/listideas">Ideias</a>
         <a href="/listsetores">Setores</a>
         <a href="/listusuarios">Usuarios</a>
       </div>
@@ -14,10 +14,16 @@
 <script>
 export default {
   name: 'login',
+  created() {
+    if(this.nivel > 1) {
+      this.$router.push('/listideas');
+    }
+  },
   data () {
     return {
       msg: 'Dashboard',
-      nivel: window.localStorage.getItem('nivel')
+      nivel: window.localStorage.getItem('nivel'),
+      ideas: []
     }
   }
 }
@@ -38,5 +44,15 @@ export default {
   color: #fff;
   font-weight: sans-serif;
   margin: 10px 0;
+}
+
+.align-sugestoes h2 {
+  text-align: left;
+  margin-left: 25px;
+}
+
+.align-sugestoes .align-ideia {
+  float: right;
+  margin-right: 25px;
 }
 </style>

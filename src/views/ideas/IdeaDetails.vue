@@ -88,7 +88,7 @@ export default {
         })
         .then(response => {
           this.comment = null,
-          this.$router.push('/listideas');
+          window.location.reload();
         })
         .catch(error => {
           alert(error.response.data.message);

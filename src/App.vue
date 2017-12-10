@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <header>
-      <a href="/dashboard"><img src="/static/img/home.png" class="home" /></a>
+      <a href="/dashboard" v-if="this.$router.currentRoute.path != '/login'" ><img src="/static/img/home.png" class="home" /></a>
       <span>LUZ</span>
       <span>
-        <input @click="logout" type="button" value="SAIR" class="clickable">
+        <input @click="logout" v-if="this.$router.currentRoute.path != '/login'" type="button" value="SAIR" class="clickable">
       </span>
     </header>
     <main>
@@ -20,6 +20,11 @@ export default {
     logout: async () => {
       await window.localStorage.clear();
       window.location.reload();
+    }
+  },
+  data() {
+    return {
+      isLogged: window.localStorage.getItem('token')
     }
   }
 }

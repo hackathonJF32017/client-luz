@@ -27,7 +27,7 @@
           <input type="password" name="senha" id="senha" v-model="usuario.co_password" />
         </div>
         <div class="row">
-          <input @click="add" type="button" value="Atualizar">
+          <input @click="add" type="button" value="Cadastrar" />
         </div>
     </div>
   </div>
