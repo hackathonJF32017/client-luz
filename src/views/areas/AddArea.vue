@@ -4,11 +4,11 @@
     <div class="card">
         <div class="row">
             <label for="name">Nome do setor</label>
-            <input type="text" name="name" id="name" />
+            <input type="text" name="name" id="name" v-model="area.nome" />
         </div>
         <div class="row">
             <label for="description">Descrição do setor</label>
-            <textarea name="description" id="description"></textarea>
+            <textarea name="description" id="description" v-model="area.descricao"></textarea>
         </div>
         <div class="row">
             <input @click="addArea" type="button" value="Cadastrar">
@@ -23,30 +23,32 @@ import axios from "axios";
 export default {
   name: "addarea",
   methods: {
-    addArea: area => {
-    axios
-    .post(`http://192.168.2.27/api/setores`,
-        {
-            no_setor: 'Nome do setor',
-            de_setor: 'Desc do setor'
-        },
-        {
-        headers: {
-          "App-Token": "SEFoQjNReTc1ZHQzTWp3Vnc4c3RqMXYrL3BxVWphR3pEcUNTWlY1WEZINE01N25YOGVxKzk0YzRLQm5Sb1Ura1dxbzlmOFJXNWdQQzVQYmFRZlQwdG9CbXZRYWwyMnhVLzNUaU5uY0l6Q1dGbEtJVGVUR2F2VHBVK2VhMUxlNGcvZVhLS2dZbjNlV2ZOWHlaeWhGbnRBPT0="
-        }
+    addArea() {
+      axios
+      .post('http://192.168.2.27/api/setores', {
+            no_setor: this.area.nome,
+            de_setor: this.area.descricao
+        }, {
+          headers: {
+            "App-Token": window.localStorage.getItem("token")
+          }
       })
       .then(response => {
-        this.area = response.data;
+        this.$router.push('/listareas');
       })
       .catch(e => {
-        window.alert("Deu erro :(\n" + e);
+        console.log(e);
+        window.alert(e.response.data.message);
       });
     }
   },
   data() {
     return {
       msg: "Setor",
-      area: null
+      area: {
+        nome: null,
+        descricao: null
+      }
     };
   }
 };

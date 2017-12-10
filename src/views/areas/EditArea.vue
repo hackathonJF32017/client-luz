@@ -28,36 +28,30 @@ export default {
   created() {
     ctx.id = this.id;
     axios
-      .get(`http://192.168.2.27/api/auth/login/${this.id}`, {
+      .get(`http://192.168.2.27/api/setores/${this.id}`, {
         headers: {
-          "App-Token":
-            "SEFoQjNReTc1ZHQzTWp3Vnc4c3RqMXYrL3BxVWphR3pEcUNTWlY1WEZINE01N25YOGVxKzk0YzRLQm5Sb1Ura1dxbzlmOFJXNWdQQzVQYmFRZlQwdG9CbXZRYWwyMnhVLzNUaU5uY0l6Q1Y0ellJZEZGS2crRUVLVjZ3QmVNblE3U0FINUhYeHRXRzFLZysvU1RKQld3PT0="
+          "App-Token": window.localStorage.getItem('token')
         }
       })
       .then(response => {
         this.area = response.data;
       })
       .catch(e => {
-        window.alert("Deu erro :( \n" + e);
+        window.alert(e.response.data.message);
       });
   },
   methods: {
-    updateArea: area => {
-    axios.post(`http://192.168.2.27/api/setores/${ctx.id}`,
-        {
-          no_setor: 'Nome do setor',
-          de_setor: 'Desc do setor'
-        },
-        {
+    updateArea() {
+      axios.post(`http://192.168.2.27/api/setores/${ctx.id}`, this.area, {
         headers: {
-          "App-Token": "SEFoQjNReTc1ZHQzTWp3Vnc4c3RqMXYrL3BxVWphR3pEcUNTWlY1WEZINE01N25YOGVxKzk0YzRLQm5Sb1Ura1dxbzlmOFJXNWdQQzVQYmFRZlQwdG9CbXZRYWwyMnhVLzNUaU5uY0l6Q1dGbEtJVGVUR2F2VHBVK2VhMUxlNGcvZVhLS2dZbjNlV2ZOWHlaeWhGbnRBPT0="
+          "App-Token": window.localStorage.getItem('token')
         }
       })
       .then(response => {
-        this.area = response.data;
+        this.$router.push('/listareas');
       })
       .catch(e => {
-        window.alert("Deu erro :(\n" + e);
+        window.alert(e.response.data.message);
       });
     }
   },
