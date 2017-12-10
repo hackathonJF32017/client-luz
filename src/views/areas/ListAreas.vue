@@ -25,7 +25,7 @@ export default {
   name: "listareas",
   created() {
     axios
-      .get(`http://192.168.2.27/api/setores`, {
+      .get('http://192.168.2.27/api/setores', {
         headers: {
           "App-Token": window.localStorage.getItem('token')
         }
