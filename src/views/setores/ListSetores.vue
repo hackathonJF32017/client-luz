@@ -1,14 +1,19 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <div v-for="area in areas">
-      <div class="card area">      
+    <h2>
+      {{ msg }}
+      <router-link :to="{path: 'addsetor'}" class="align-setores">
+        <input type="button" value="Cadastrar setor" />
+      </router-link>
+    </h2>
+    <div v-for="setor in setores">
+      <div class="card area">
         <div class="text">
-          <h2>Nome: {{ area.no_setor }}</h2>
-          <h2>Descrição: {{ area.de_setor }}</h2>
+          <h3>Nome: {{ setor.no_setor }}</h3>
+          <h4>Descrição: {{ setor.de_setor }}</h4>
         </div>
         <div class="info">
-          <router-link :to="{path: 'listareas/' + area.co_setor}">
+          <router-link :to="{path: 'listsetores/' + setor.co_setor}">
             <input type="button" value="Editar" />
           </router-link>
           <input type="button" value="Excluir" />
@@ -22,7 +27,7 @@
 import axios from "axios";
 
 export default {
-  name: "listareas",
+  name: "listsetores",
   created() {
     axios
       .get('http://192.168.2.27/api/setores', {
@@ -31,27 +36,26 @@ export default {
         }
       })
       .then(response => {
-        this.areas = response.data;
+        this.setores = response.data;
       })
       .catch(e => {
-        window.alert("Deu erro :( \n" + e);
+        window.alert(e.response.data.message);
       });
-  },
-  methods: {
-    vote: idea => {
-      window.alert(idea);
-    }
   },
   data() {
     return {
       msg: "Setores",
-      areas: []
+      setores: []
     };
   }
 };
 </script>
 
 <style scoped>
+h2 {
+  text-align: left;
+  margin-left: 25px;
+}
 .card .text {
   flex: 1;
 }
@@ -63,5 +67,9 @@ export default {
 .card .info h3 {
   font-size: 1.1em;
   font-weight: 400;
+}
+.align-setores {
+  float: right;
+  margin-right: 25px;
 }
 </style>

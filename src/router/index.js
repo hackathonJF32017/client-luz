@@ -5,10 +5,10 @@ import Home from '@/views/Home';
 import Profile from '@/views/Profile';
 import Dashboard from '@/views/Dashboard';
 
-// Area
-import AddArea from '@/views/areas/AddArea';
-import ListAreas from '@/views/areas/ListAreas';
-import EditArea from '@/views/areas/EditArea';
+// Setores
+import AddSetor from '@/views/setores/AddSetor';
+import ListSetores from '@/views/setores/ListSetores';
+import EditSetor from '@/views/setores/EditSetor';
 
 // Ideas
 import AddIdea from '@/views/ideas/AddIdea';
@@ -57,21 +57,21 @@ const router = new Router({
       component: ListIdeas,
     },
 
-    // Area
+    // Setores
     {
-      path: '/addarea',
-      name: 'AddArea',
-      component: AddArea,
+      path: '/addsetor',
+      name: 'AddSetor',
+      component: AddSetor,
     },
     {
-      path: '/listareas',
-      name: 'ListAreas',
-      component: ListAreas,
+      path: '/listsetores',
+      name: 'ListSetores',
+      component: ListSetores,
     },
     {
-      path: '/listareas/:id',
-      name: 'EditArea',
-      component: EditArea,
+      path: '/listsetores/:id',
+      name: 'EditSetor',
+      component: EditSetor,
       props: true
     },
 
