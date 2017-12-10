@@ -2,6 +2,9 @@
   <div id="app">
     <header>
       <span>LUZ</span>
+      <span>
+        <input @click="logout" type="button" value="SAIR" class="clickable">
+      </span>
     </header>
     <main>
       <router-view></router-view>
@@ -11,7 +14,13 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  methods: {
+    logout: async () => {
+      await window.localStorage.clear();
+      window.location.reload();
+    }
+  }
 }
 </script>
 
@@ -42,6 +51,8 @@ header {
   padding: 0 16px 0 24px;
   background-color: #35495E;
   color: #ffffff;
+  display: flex;
+  justify-content: space-between;
 }
 
 header span {
