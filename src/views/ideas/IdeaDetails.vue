@@ -1,6 +1,11 @@
 <template>
   <div class="hello">
-    <h2>{{ msg }}</h2>
+    <h2>
+      {{ msg }}
+      <div v-if="nivel == 2">
+        <input type="button" v-if="idea.ck_aplicacao != 1" @click="marcar" value="Marcar como implementado" />
+      </div>
+    </h2>
     <div class="card">
       <div class="row">
 
@@ -8,14 +13,6 @@
       <div class="row">
         <h3>
           Sugestão
-          <div if="nivel == 2">
-            <router-link :to="{path: 'addidea'}" class="align-ideia">
-              <input type="button" value="Enviar resposta" />
-            </router-link>
-            <router-link :to="{path: 'addidea'}" class="align-ideia">
-              <input type="button" value="Marcar como implementado" />
-            </router-link>
-          </div>
         </h3>
         <div>"{{idea.de_ideia}}"</div>
       </div>
@@ -114,6 +111,32 @@ export default {
             "App-Token": window.localStorage.getItem('token')
           }
         })
+    },
+    marcar() {
+      this.$swal({
+        title: 'Confirmar ação?',
+        text: "Você deseja mesmo marcas esta idéia como implementada?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, marcar!',
+        cancelButtonText: 'Cancelar'        
+      }).then((result) => {
+        if(result) {
+          axios
+          .post('http://192.168.2.27/api/ideias/' + ctx.id + '/marcar', {}, {
+            headers: {
+              "App-Token": window.localStorage.getItem('token')
+            }
+          })
+          .then(response => {
+            if(response.status == 200) {
+              window.location.reload();
+            }
+          });
+        }
+      }, () => {});
     }
   },
   data () {
@@ -137,5 +160,14 @@ export default {
   h2 {
     float: left;
     margin-left: 25px;
+    text-align: left;
+    width: calc(100% - 50px);
+  }
+  h2 div {
+    float: right;
+  }
+  .align-ideia {
+    float: right;
+    margin-left: 10px;
   }
 </style>
