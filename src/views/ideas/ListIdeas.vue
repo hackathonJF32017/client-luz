@@ -24,8 +24,7 @@ export default {
     axios
       .get(`http://192.168.2.27/api/ideias`, {
         headers: {
-          "App-Token":
-            "SEFoQjNReTc1ZHQzTWp3Vnc4c3RqMXYrL3BxVWphR3pEcUNTWlY1WEZINE01N25YOGVxKzk0YzRLQm5Sb1Ura1dxbzlmOFJXNWdQQzVQYmFRZlQwdG9CbXZRYWwyMnhVLzNUaU5uY0l6Q1dCZjdYLzRJZmVwd2ZEZUZBOFA3UnJxUUdxSHdVeTI3UjFBd0QxL0U4c053PT0="
+          "App-Token": window.localStorage.getItem('token')
         }
       })
       .then(response => {

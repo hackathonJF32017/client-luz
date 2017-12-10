@@ -32,7 +32,7 @@ export default {
         },
         {
         headers: {
-          "App-Token": "SEFoQjNReTc1ZHQzTWp3Vnc4c3RqMXYrL3BxVWphR3pEcUNTWlY1WEZINE01N25YOGVxKzk0YzRLQm5Sb1Ura1dxbzlmOFJXNWdQQzVQYmFRZlQwdG9CbXZRYWwyMnhVLzNUaU5uY0l6Q1dGbEtJVGVUR2F2VHBVK2VhMUxlNGcvZVhLS2dZbjNlV2ZOWHlaeWhGbnRBPT0="
+          "App-Token": window.localStorage.getItem('token')
         }
       })
       .then(response => {

@@ -30,8 +30,7 @@ export default {
     axios
       .get(`http://192.168.2.27/api/auth/login/${this.id}`, {
         headers: {
-          "App-Token":
-            "SEFoQjNReTc1ZHQzTWp3Vnc4c3RqMXYrL3BxVWphR3pEcUNTWlY1WEZINE01N25YOGVxKzk0YzRLQm5Sb1Ura1dxbzlmOFJXNWdQQzVQYmFRZlQwdG9CbXZRYWwyMnhVLzNUaU5uY0l6Q1Y0ellJZEZGS2crRUVLVjZ3QmVNblE3U0FINUhYeHRXRzFLZysvU1RKQld3PT0="
+          "App-Token": window.localStorage.getItem('token')
         }
       })
       .then(response => {
