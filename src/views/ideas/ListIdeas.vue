@@ -4,11 +4,11 @@
     <div v-for="idea in ideas">
       <div class="card idea">      
         <div class="text">
-          <p>{{ idea.text }}</p>
+          <p>{{ idea.de_ideia }}</p>
         </div>
         <div class="info">
-          <h3>Apoios: {{ idea.votes }}</h3>
-          <input @click="vote(idea.id)" type="button" class="clickable" value="Apoiar" />
+          <h3>Apoios: {{ idea.totalApoios }}</h3>
+          <input @click="vote(idea)" type="button" class="clickable" value="Apoiar" />
         </div>
       </div>
     </div>
@@ -35,8 +35,22 @@ export default {
       });
   },
   methods: {
-    vote: idea => {
-      window.alert(idea);
+    vote (idea) {
+      idea.totalApoios += 1;
+      axios
+        .post(`http://192.168.2.27/api/ideias/${idea.co_ideia}/apoios`,
+        {},
+        {
+          headers: {
+            "App-Token": window.localStorage.getItem('token')
+          }
+        })
+        .then(response => {
+          this.$router.push('/listideas');
+        })
+        .catch(error => {
+          alert(error.response.data.message);
+        });
     }
   },
   data() {
