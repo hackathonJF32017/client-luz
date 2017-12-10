@@ -13,6 +13,7 @@ import EditArea from '@/views/areas/EditArea';
 // Ideas
 import AddIdea from '@/views/ideas/AddIdea';
 import ListIdeas from '@/views/ideas/ListIdeas';
+import IdeaDetails from '@/views/ideas/IdeaDetails';
 
 import NotFound from '@/views/NotFound';
 
@@ -55,6 +56,11 @@ const router = new Router({
       path: '/listideas',
       name: 'ListIdeas',
       component: ListIdeas,
+    },
+    {
+      path: '/listideas/:id',
+      name: 'IdeaDetails',
+      component: IdeaDetails,
     },
 
     // Area

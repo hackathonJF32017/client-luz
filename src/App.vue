@@ -98,7 +98,15 @@ textarea {
 }
 
 .row:not(:last-of-type) {
-  margin-bottom: 1em;
+  margin-bottom: .6em;
+}
+
+h4 {
+  margin: .2em 0;
+}
+
+h5 {
+  margin: .1em 0;
 }
 
 .card {

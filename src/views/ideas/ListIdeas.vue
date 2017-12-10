@@ -2,15 +2,17 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div v-for="idea in ideas">
-      <div class="card idea">      
-        <div class="text">
-          <p>{{ idea.de_ideia }}</p>
+      <router-link :to="{path: '/listideas/' + idea.co_ideia}">
+        <div class="card idea">      
+          <div class="text">
+            <p>{{ idea.de_ideia }}</p>
+          </div>
+          <div class="info">
+            <h3>Apoios: {{ idea.totalApoios }}</h3>
+            <input @click="vote(idea)" type="button" class="clickable" value="Apoiar" />
+          </div>
         </div>
-        <div class="info">
-          <h3>Apoios: {{ idea.totalApoios }}</h3>
-          <input @click="vote(idea)" type="button" class="clickable" value="Apoiar" />
-        </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
